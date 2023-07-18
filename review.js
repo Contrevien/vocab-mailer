@@ -8,7 +8,7 @@ const port = 3000
 
 app.get('/review1', (req, res) => {
   const isCorrect = req.query.isCorrect
-  const link = decodeURI(req.query.link)
+  const link = decodeURIComponent(req.query.link)
 
   // If the answer is correct, remove the link from review1 and move it review2 for 7 days
   if (isCorrect === "1") {
@@ -24,7 +24,7 @@ app.get('/review1', (req, res) => {
 
 app.get('/review2', (req, res) => {
   const isCorrect = req.query.isCorrect
-  const link = decodeURI(req.query.link)
+  const link = decodeURIComponent(req.query.link)
 
   // If the answer is incorrect, add the link back to review1
   if (isCorrect === "0") {
