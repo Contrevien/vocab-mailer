@@ -1,10 +1,13 @@
 import express from 'express'
 import fs from 'fs'
+import cors from 'cors'
 import review1 from './review1.json' assert { type: 'json' }
 import review2 from './review2.json' assert { type: 'json' }
 
 const app = express()
 const port = 3000
+
+app.use(cors())
 
 app.get('/review1', (req, res) => {
   const isCorrect = req.query.isCorrect
