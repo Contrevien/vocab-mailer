@@ -3,12 +3,13 @@ import StealthPlugin from "puppeteer-extra-plugin-stealth"
 import AdBlockerPlugin from "puppeteer-extra-plugin-adblocker"
 import nodemailer from "nodemailer"
 import fs from "fs"
-import done from "./done.json" assert { type: 'json' }
+import sent from "./sent.json" assert { type: 'json' }
+import review1 from "./review1.json" assert { type: 'json' }
 
 puppeteer.use(StealthPlugin())
 puppeteer.use(AdBlockerPlugin({ blockTrackers: true }))
 
-const getQuotes = async (done) => {
+const getQuotes = async (sent) => {
   const browser = await puppeteer.launch({
     defaultViewport: null,
   });
@@ -32,7 +33,7 @@ const getQuotes = async (done) => {
     return { text, link }
   });
 
-  while (done.includes(details.link)) {
+  while (sent.includes(details.link)) {
     details = await page.evaluate(() => {
         const vocabsLength = document.querySelectorAll("#main #content .entry a").length;
         const vocab = document.querySelector(`#main #content .entry p:nth-of-type(${Math.floor(Math.random() * vocabsLength)}) a`)
@@ -74,9 +75,11 @@ const sendMail = (subject, link) => {
             res.send({error: "Failed to send email"});
         } else {
             try {
-                const doneCopy = [...done]
-                doneCopy.push(link)
-                fs.writeFileSync("./done.json", JSON.stringify(doneCopy, null, 2), "utf8");
+                const sentCopy = [...sent]
+                sentCopy.push(link)
+                fs.writeFileSync("./sent.json", JSON.stringify(sentCopy, null, 2), "utf8");
+                const review1Copy = [...review1]
+                review1Copy.push(link)
             } catch(err) {
                 console.log(err)
             }
@@ -86,4 +89,4 @@ const sendMail = (subject, link) => {
     });
 }
 
-getQuotes(done);
+getQuotes(sent);
