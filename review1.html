@@ -1,7 +1,7 @@
 <html>
     <script>
-        let isCorrect = new URLSearchParams().get("isCorrect")
-        let link = new URLSearchParams().get("link")
+        let isCorrect = new URLSearchParams(window.location.search).get("isCorrect")
+        let link = new URLSearchParams(window.location.search).get("link")
         fetch(`http://52.194.225.132:3000/review1?isCorrect=${isCorrect}&link=${link}`)
     </script>
     <body>
