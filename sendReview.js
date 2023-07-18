@@ -10,8 +10,8 @@ const getReviewItem = (link, type) => {
     return `
         <p>${word}:&nbsp;<a href="${link}">${link}</a></p>
         <div style="display: flex;">
-            <button style="background-color: green; margin-right: 20px;"><a href="http://52.194.225.132/review${type}.html/?isCorrect=1&link=${encodeURIComponent(link)}" style="color: white; text-decoration: none;">Correct</a></button>
-            <button style="background-color: red;"><a href="http://52.194.225.132/review${type}.html/?isCorrect=0&link=${encodeURIComponent(link)}" style="color: white; text-decoration: none;">Incorrect</a></button>
+            <button style="background-color: green; margin-right: 20px;"><a href="http://52.194.225.132/review${type}.html?isCorrect=1&link=${encodeURIComponent(link)}" style="color: white; text-decoration: none;">Correct</a></button>
+            <button style="background-color: red;"><a href="http://52.194.225.132/review${type}.html?isCorrect=0&link=${encodeURIComponent(link)}" style="color: white; text-decoration: none;">Incorrect</a></button>
         </div>
         <br/>
         -----------------------------------
