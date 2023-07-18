@@ -33,7 +33,7 @@ const getQuotes = async (sent) => {
     return { text, link }
   });
 
-  while (sent.includes(details.link)) {
+  while (!!sent[details.link]) {
     details = await page.evaluate(() => {
         const vocabsLength = document.querySelectorAll("#main #content .entry a").length;
         const vocab = document.querySelector(`#main #content .entry p:nth-of-type(${Math.floor(Math.random() * vocabsLength)}) a`)
@@ -75,11 +75,12 @@ const sendMail = (subject, link) => {
             res.send({error: "Failed to send email"});
         } else {
             try {
-                const sentCopy = [...sent]
-                sentCopy.push(link)
+                const sentCopy = {...sent}
+                sentCopy[link] = subject.split(" ")[0]
                 fs.writeFileSync("./sent.json", JSON.stringify(sentCopy, null, 2), "utf8");
                 const review1Copy = [...review1]
                 review1Copy.push(link)
+                fs.writeFileSync("./review1.json", JSON.stringify(review1Copy, null, 2), "utf8");
             } catch(err) {
                 console.log(err)
             }
