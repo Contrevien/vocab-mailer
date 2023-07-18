@@ -16,6 +16,8 @@ const getQuotes = async (sent) => {
 
   const page = await browser.newPage();
 
+  await page.screenshot({ path: "./test.png" })
+  
   await page.goto("https://japanesetest4you.com/jlpt-n1-vocabulary-list/", {
     waitUntil: "domcontentloaded"
   });
